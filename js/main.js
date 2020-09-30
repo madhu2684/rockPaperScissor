@@ -1,5 +1,6 @@
 const choices = document.querySelectorAll(".choices");
 const score = document.getElementById("score");
+const result = document.getElementById("result");
 const restart = document.getElementById("restart");
 const modal = document.querySelector(".modal");
 const scoreboard = {
@@ -9,8 +10,10 @@ const scoreboard = {
 
 choices.forEach((choice) => choice.addEventListener("click", play));
 window.addEventListener("click", clearModal);
+restart.addEventListener("click", restartGame);
 
 function play(e) {
+  restart.style.display = "inline-block";
   const playerChoice = e.target.id;
   const computerChoice = getComputerChoice();
   const winner = getWinner(playerChoice, computerChoice);
@@ -86,6 +89,16 @@ function showWinner(winner, computerChoice) {
   `;
 
   modal.style.display = "block";
+}
+
+function restartGame(e) {
+  scoreboard.player = 0;
+  scoreboard.computer = 0;
+  score.innerHTML = `
+    <p>Player: 0</p>
+    <p>Computer: 0</p> 
+    `;
+  restart.style.display = "none";
 }
 
 function clearModal(e) {
